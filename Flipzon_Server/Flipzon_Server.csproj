@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flipzon_Models\Flipzon_Models.csproj" />
+  </ItemGroup>
+
 </Project>

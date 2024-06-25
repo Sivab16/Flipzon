@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_Server", "Flipzon_Server\Flipzon_Server.csproj", "{8760E2E0-6D8A-44AE-A6C0-8FE8836E6E22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_Server", "Flipzon_Server\Flipzon_Server.csproj", "{8760E2E0-6D8A-44AE-A6C0-8FE8836E6E22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_WebAssembly", "Flipzon_WebAssempbly\Flipzon_WebAssembly.csproj", "{9A392863-679A-4445-B28B-6FF0E88611FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_Models", "Flipzon_Models\Flipzon_Models.csproj", "{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{8760E2E0-6D8A-44AE-A6C0-8FE8836E6E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8760E2E0-6D8A-44AE-A6C0-8FE8836E6E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8760E2E0-6D8A-44AE-A6C0-8FE8836E6E22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A392863-679A-4445-B28B-6FF0E88611FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A392863-679A-4445-B28B-6FF0E88611FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A392863-679A-4445-B28B-6FF0E88611FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A392863-679A-4445-B28B-6FF0E88611FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

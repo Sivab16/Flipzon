@@ -1,0 +1,59 @@
+﻿@page "/product"
+<div class="row">
+    <div class="col border p-3">
+        <h3 class="text-primary">Product Details</h3> <hr />
+        <br />
+
+        @* Price :
+        <input type="number" @bind="@newProduct.Price" />
+        <br />
+        <br /> *@
+        <div>
+            Stock Available : @(newProduct.IsAvailable ? "Available" : "Out of Stock")
+            <br />
+            Stock :
+            <input type="checkbox" @bind=@newProduct.IsAvailable />
+        </div>
+        <div>
+
+            Price :
+            <input type="number" @bind-value="@newProduct.Price" @bind-value:event="oninput" />
+        </div>
+        <br />
+       
+    </div>
+    <div class="col border p-3">
+
+        <h3 class="text-primary">Product</h3><hr />
+        Name : @newProduct.Name <br />
+        Available : @newProduct.IsAvailable <br />
+        Price : @newProduct.Price
+        <br />
+
+       
+
+    </div>
+    <br />
+    <br />
+   
+</div>
+
+
+
+
+
+
+@* C# Code section *@
+@code
+{
+    private string selectedFeatureItem = string.Empty;
+    //here we can write our c# code.
+    ProductModel newProduct = new ProductModel()
+        {
+            Id = 001,
+            Name = "Boult Air Bud",
+            IsAvailable = true,
+            Price = 500,
+          
+        };
+}
