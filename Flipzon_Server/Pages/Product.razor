@@ -1,4 +1,7 @@
 ﻿@page "/product"
+
+<h2 class="text-success">Individual Product</h2>
+<hr />
 <div class="row">
     <div class="col border p-3">
         <h3 class="text-primary">Product Details</h3> <hr />
@@ -12,7 +15,7 @@
             Stock Available : @(newProduct.IsAvailable ? "Available" : "Out of Stock")
             <br />
             Stock :
-            <input type="checkbox" @bind=@newProduct.IsAvailable />
+            <input type="checkbox" @bind=@newProduct.IsAvailable/>
         </div>
         <div>
 
@@ -29,10 +32,25 @@
         Available : @newProduct.IsAvailable <br />
         Price : @newProduct.Price
         <br />
+        Feature Selected : @selectedFeatureItem
+        @if (!String.IsNullOrWhiteSpace(selectedFeatureItem))
+        {
+         <p> Feature Value: @newProduct.Feature.FirstOrDefault(a=>a.Key==selectedFeatureItem).Value</p>   
+        }
     </div>
     <br />
     <br />
-   
+    <div>
+        Product Feature :
+        <select @bind="selectedFeatureItem">
+            @foreach (var item in newProduct.Feature)
+            {
+                <option value="@item.Key"> @item.Key</option>
+            }
+        </select>
+    </div>
+    
+
 </div>
 
 
@@ -50,7 +68,14 @@
             Id = 001,
             Name = "Boult Air Bud",
             IsAvailable = true,
-            Price = 500,
-          
+            Price = 5007,
+
+            Feature = new List<ProductFeature>()
+            {
+                new ProductFeature{ Id=1,Key="Color",Value="OceanGreen"},
+                new ProductFeature{ Id=2,Key="Type",Value="Wireless"},
+                new ProductFeature{ Id=3,Key="Size",Value="Free"}
+            }
+
         };
 }

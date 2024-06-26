@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flipzon_Models.Product
+namespace Flipzon_Models.Product_Models
 {
     public class ProductModel
     {
@@ -16,6 +16,6 @@ namespace Flipzon_Models.Product
 
         public double Price { get; set; }
 
-        
+        public List<ProductFeature> Feature { get; set; }
     }
 }

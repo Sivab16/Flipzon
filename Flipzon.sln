@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_Server", "Flipzon_S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_WebAssembly", "Flipzon_WebAssempbly\Flipzon_WebAssembly.csproj", "{9A392863-679A-4445-B28B-6FF0E88611FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_Models", "Flipzon_Models\Flipzon_Models.csproj", "{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_Models", "Flipzon_Models\Flipzon_Models.csproj", "{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
