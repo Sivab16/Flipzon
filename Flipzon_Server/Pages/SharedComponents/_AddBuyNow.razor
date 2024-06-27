@@ -1,0 +1,15 @@
+﻿
+@if (IsAvailable)
+{
+    <div>
+        <input type="button" class=" btn btn-primary" style="width:110px" value="Add To Cart" />
+        <input type="button" class=" btn btn-secondary" style="width:110px" value="Buy Now" />
+    </div>
+}
+
+
+@code {
+
+    [Parameter]
+    public bool IsAvailable { get; set; }
+}

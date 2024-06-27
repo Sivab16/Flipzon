@@ -1,0 +1,62 @@
+﻿@page "/ProductList"
+
+<h2 class="text-success">Product List</h2>
+<hr />
+<div class="border p-2 mt-2" style="background-color:azure" >
+
+    Wishlist : 
+   
+    <div class="row">
+
+        @foreach (var item in AddProduct)
+        {
+            <_IndividualProduct Product="@item"> </_IndividualProduct>
+           
+        }
+
+    </div>
+</div>
+@code {
+
+
+    List<ProductModel> AddProduct = new();
+
+    protected override void OnInitialized()
+    {
+        //adding second product
+        AddProduct.Add(new()
+            {
+                Id = 002,
+                Name = "Boat Air Dopes",
+                IsAvailable = false,
+                Price = 899,
+                Feature = new()
+            {
+              new ProductFeature{ Id=1,Key="Color",Value="Iron Blood"},
+                new ProductFeature{ Id=2,Key="Type",Value=" ASAP Charge Bluetooth Headset "},
+                new ProductFeature{ Id=3,Key="Battery",Value="60"}
+
+            }
+
+
+
+            });
+
+        //adding third product
+        AddProduct.Add(new()
+            {
+                Id = 003,
+                Name = "OPPO Enco Buds 2",
+                IsAvailable = false,
+                Price = 1899,
+                Feature = new()
+            {
+              new ProductFeature{ Id=1,Key="Color",Value="Midnight"},
+                new ProductFeature{ Id=2,Key="Type",Value="Deep Noise Cancellation Bluetooth Headset "},
+                new ProductFeature{ Id=3,Key="Battery",Value="28"}
+
+            }
+
+            });
+    }
+}

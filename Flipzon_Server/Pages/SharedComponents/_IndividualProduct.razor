@@ -1,0 +1,30 @@
+﻿<div class="bg-light border m-3 col-5 p-4">
+    <h4 class="text-primary">Product - @Product.Id</h4>
+    
+    <div> <input type="checkbox" onchange=""/> Add to Wishlist</div>
+    Name: @Product.Name<br /> 
+    Price: @Product.Price<br />
+    Show Feature:
+    <input type="checkbox" @bind-value="Product.IsAvailable" checked="@(Product.IsAvailable ? "Checked" : null)" />
+    <br />
+    @if (Product.IsAvailable)
+    {
+        @foreach (var itemFeature in Product.Feature)
+        {
+            <p> @itemFeature.Key - @itemFeature.Value</p>
+        }
+
+    }
+    <br />
+    <_AddBuyNow IsAvailable="@Product.IsAvailable">
+
+    </_AddBuyNow>
+
+
+</div>
+
+@code {
+
+    [Parameter]
+    public ProductModel Product { get; set; }
+}

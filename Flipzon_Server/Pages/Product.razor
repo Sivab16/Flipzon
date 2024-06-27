@@ -4,7 +4,7 @@
 <hr />
 <div class="row">
     <div class="col border p-3">
-        <h3 class="text-primary">Product Details</h3> <hr />
+        <h3 class="text-primary">Product Price and Availability</h3> <hr />
         <br />
 
         @* Price :
@@ -15,7 +15,7 @@
             Stock Available : @(newProduct.IsAvailable ? "Available" : "Out of Stock")
             <br />
             Stock :
-            <input type="checkbox" @bind=@newProduct.IsAvailable/>
+            <input type="checkbox" @bind=@newProduct.IsAvailable />
         </div>
         <div>
 
@@ -23,11 +23,20 @@
             <input type="number" @bind-value="@newProduct.Price" @bind-value:event="oninput" />
         </div>
         <br />
-       
+        <div>
+            Product Feature :
+            <select @bind="selectedFeatureItem">
+                @foreach (var item in newProduct.Feature)
+                {
+                    <option value="@item.Key"> @item.Key</option>
+                }
+            </select>
+        </div>
+
     </div>
     <div class="col border p-3">
 
-        <h3 class="text-primary">Product</h3><hr />
+        <h3 class="text-primary">Product Summary</h3><hr />
         Name : @newProduct.Name <br />
         Available : @newProduct.IsAvailable <br />
         Price : @newProduct.Price
@@ -35,24 +44,45 @@
         Feature Selected : @selectedFeatureItem
         @if (!String.IsNullOrWhiteSpace(selectedFeatureItem))
         {
-         <p> Feature Value: @newProduct.Feature.FirstOrDefault(a=>a.Key==selectedFeatureItem).Value</p>   
+            <p> Feature Value: @newProduct.Feature.FirstOrDefault(a => a.Key == selectedFeatureItem).Value</p>
         }
-    </div>
-    <br />
-    <br />
-    <div>
-        Product Feature :
-        <select @bind="selectedFeatureItem">
-            @foreach (var item in newProduct.Feature)
-            {
-                <option value="@item.Key"> @item.Key</option>
-            }
-        </select>
     </div>
     
 
-</div>
+    <br />
+    <br />
+    <div class="col-12 border pt-4">
+        <h3 class="text-primary">Product Table</h3>
+      <table class="table table-primary">
+          <tbody>
+              @foreach (var item in AddProduct)
+                {
+                    <tr>
+                        <td>
+                            <input type="text" @bind-value=item.Name @bind-value:event="oninput" />
+                        </td>
+                        <td>
+                            <input type="text" @bind-value=item.Price @bind-value:event="oninput" />
+                        </td>
+                        <td>
+                            <input type="checkbox" @bind-value=item.IsAvailable @bind-value:event="oninput" />
+                        </td>
+                    </tr>
+                    
+                }
+          </tbody>
+      </table>
+        <h3 class="text-primary">Product Summary</h3>
+        @foreach (var item in AddProduct)
+        {
+            <p>@item.Name and price is [ @item.Price ] is @(item.IsAvailable ? "Available ": "Out of Stock") </p>
+        }
 
+    </div>
+
+
+
+</div>
 
 
 
@@ -74,8 +104,51 @@
             {
                 new ProductFeature{ Id=1,Key="Color",Value="OceanGreen"},
                 new ProductFeature{ Id=2,Key="Type",Value="Wireless"},
-                new ProductFeature{ Id=3,Key="Size",Value="Free"}
+                new ProductFeature{ Id=3,Key="Battery",Value="90"}
             }
 
         };
+
+    List<ProductModel> AddProduct = new();
+    //when the component initialized this method invoke
+    protected override void OnInitialized()
+    {
+        //adding second product
+        AddProduct.Add(new()
+            {
+                Id = 002,
+                Name = "Boat Air Dopes",
+                IsAvailable = false,
+                Price = 899,
+                Feature = new()
+            {
+                new ProductFeature{ Id=1,Key="Color",Value="Iron Blood"},
+                new ProductFeature{ Id=2,Key="Type",Value=" ASAP Charge Bluetooth Headset "},
+                new ProductFeature{ Id=3,Key="Battery",Value="60"}
+
+            }
+
+
+
+            });
+
+        //adding third product
+        AddProduct.Add(new()
+            {
+                Id = 003,
+                Name = "OPPO Enco Buds 2",
+                IsAvailable = false,
+                Price = 1899,
+                Feature = new()
+            {
+              new ProductFeature{ Id=1,Key="Color",Value="Midnight"},
+                new ProductFeature{ Id=2,Key="Type",Value="Deep Noise Cancellation Bluetooth Headset "},
+                new ProductFeature{ Id=3,Key="Battery",Value="28"}
+
+            }
+
+            });
+    }
+
+
 }
