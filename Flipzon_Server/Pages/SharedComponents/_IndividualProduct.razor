@@ -1,8 +1,8 @@
-﻿<div class="bg-light border m-3 col-5 p-4">
+﻿<div class="bg-light border m-2 col-5 p-4  " @onclick="(args)=>GetLastProductName(args,Product.Name)">
     <h4 class="text-primary">Product - @Product.Id</h4>
-    
-    <div> <input type="checkbox" onchange=""/> Add to Wishlist</div>
-    Name: @Product.Name<br /> 
+
+    <div> <input type="checkbox" @onchange="WishListUpdate" /> Add to Wishlist  </div>
+    Name: @Product.Name<br />
     Price: @Product.Price<br />
     Show Feature:
     <input type="checkbox" @bind-value="Product.IsAvailable" checked="@(Product.IsAvailable ? "Checked" : null)" />
@@ -27,4 +27,24 @@
 
     [Parameter]
     public ProductModel Product { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnWishListSelection { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnLastSelection { get; set; }
+
+    private async Task WishListUpdate(ChangeEventArgs e)
+    {
+        await OnWishListSelection.InvokeAsync((bool)e.Value);
+    }
+
+    private async Task GetLastProductName(MouseEventArgs e, string name)
+    {
+        await OnLastSelection.InvokeAsync(name);
+    }
+
+
+
+
 }

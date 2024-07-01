@@ -1,23 +1,27 @@
-﻿@page "/ProductList"
+﻿@page "/ProduCtlist"
 
 <h2 class="text-success">Product List</h2>
 <hr />
-<div class="border p-2 mt-2" style="background-color:azure" >
+<div class="border p-2 mt-2" style="background-color:azure">
 
-    Wishlist : 
-   
+    <p> Wishlist : @SelectedWishListCount</p>
+
+    <p> Last Selected Product : <div class="text-danger"> @LastSelectedProduct</div></p>
+
     <div class="row">
 
         @foreach (var item in AddProduct)
         {
-            <_IndividualProduct Product="@item"> </_IndividualProduct>
-           
+            <_IndividualProduct Product="@item" OnWishListSelection="WishListCountUpdate" OnLastSelection="GetLastSelectedProduct"> </_IndividualProduct>
+
         }
 
     </div>
 </div>
 @code {
+    public int SelectedWishListCount { get; set; } = 0;
 
+    public string LastSelectedProduct { get; set; }
 
     List<ProductModel> AddProduct = new();
 
@@ -59,4 +63,22 @@
 
             });
     }
+
+
+    protected void WishListCountUpdate(bool IsSelected)
+    {
+
+        if (IsSelected)
+            SelectedWishListCount++;
+        else
+            SelectedWishListCount--;
+
+    }
+
+
+    protected void GetLastSelectedProduct(string ProductName)
+    {
+        LastSelectedProduct = ProductName;
+    }
+
 }
