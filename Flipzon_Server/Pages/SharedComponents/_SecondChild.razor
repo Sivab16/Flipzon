@@ -1,0 +1,34 @@
+﻿<div>
+
+    <h4 class=" text text-primary pt-3"> Second Child Component</h4>
+
+    @* <input id="nametemp" placeholder=@Placeholder maxlength=@MaxLength required=@required /> *@
+
+    <input id="nametemp" @attributes=InputAttributes />
+
+</div>
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = "Enter text here";
+
+    [Parameter]
+    public string MaxLength { get; set; } = "15";
+
+
+    [Parameter]
+    public string required { get; set; } = "required";
+
+
+    [Parameter]
+    public string Autocomplete { get; set; } = "on";
+
+
+    [Parameter]
+    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
+    {
+        { "placeholder" ,"Enter text here..."},
+        { "maxlength"," 15"},
+        {"required","required" },
+    {"autocomplete","on"}
+    };
+}

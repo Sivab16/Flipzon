@@ -1,0 +1,39 @@
+﻿@page "/parent"
+
+<h3>Parent Child Relationship</h3>
+
+<_ChildComponent OnClickButton="ShowMessage" Title="The Title message from Parent">
+
+    <ChildContent>  Render fragment type from child content  </ChildContent>
+
+</_ChildComponent>
+
+<p> @message </p>
+
+
+<_SecondChild InputAttributes="InputAttributesFromParent">
+
+</_SecondChild>
+
+
+
+
+
+@code {
+
+    [Parameter]
+    public Dictionary<string, object> InputAttributesFromParent { get; set; } = new Dictionary<string, object>()
+    {
+    { "placeholder" ,"Enter name"},
+    { "maxlength"," 5"},
+    {"required","required" },
+    {"autocomplet","off"}
+    };
+
+    public string message = string.Empty;
+
+    public void ShowMessage()
+    {
+        message = "Button clicked from Child component, this message from the Parent";
+    }
+}

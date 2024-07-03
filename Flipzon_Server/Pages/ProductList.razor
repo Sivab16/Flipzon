@@ -1,4 +1,5 @@
 ﻿@page "/ProduCtlist"
+@page "/ProduCtlist/Page"
 
 <h2 class="text-success">Product List</h2>
 <hr />
@@ -24,7 +25,7 @@
     public string LastSelectedProduct { get; set; }
 
     List<ProductModel> AddProduct = new();
-
+    //Lifecycle methods
     protected override void OnInitialized()
     {
         //adding second product
@@ -64,7 +65,7 @@
             });
     }
 
-
+    //Event handlers Action method
     protected void WishListCountUpdate(bool IsSelected)
     {
 
@@ -73,9 +74,10 @@
         else
             SelectedWishListCount--;
 
+
     }
 
-
+    //Event handlers Action method
     protected void GetLastSelectedProduct(string ProductName)
     {
         LastSelectedProduct = ProductName;

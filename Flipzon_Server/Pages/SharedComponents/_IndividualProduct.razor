@@ -34,10 +34,18 @@
     [Parameter]
     public EventCallback<string> OnLastSelection { get; set; }
 
+
+
+
+
+    //asynchronous programming - allows a method to run without blocking the main thread.
     private async Task WishListUpdate(ChangeEventArgs e)
     {
         await OnWishListSelection.InvokeAsync((bool)e.Value);
+        
     }
+
+  
 
     private async Task GetLastProductName(MouseEventArgs e, string name)
     {
