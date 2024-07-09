@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_WebAssembly", "Flip
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flipzon_Models", "Flipzon_Models\Flipzon_Models.csproj", "{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_Common", "Flipzon_Common\Flipzon_Common.csproj", "{C59343F8-E026-46B1-8324-4B00C6967BE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_Business", "Flipzon_Business\Flipzon_Business.csproj", "{CA2FCE90-7DC1-4DEE-8C8A-9FECB5B31719}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipzon_DataAccess", "Flipzon_DataAccess\Flipzon_DataAccess.csproj", "{C30E38E1-7E7D-4CCC-8139-46DEE174BAE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAB94DEC-FD4A-4EFC-A5F9-0FFFBF37692C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C59343F8-E026-46B1-8324-4B00C6967BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C59343F8-E026-46B1-8324-4B00C6967BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C59343F8-E026-46B1-8324-4B00C6967BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C59343F8-E026-46B1-8324-4B00C6967BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA2FCE90-7DC1-4DEE-8C8A-9FECB5B31719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2FCE90-7DC1-4DEE-8C8A-9FECB5B31719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2FCE90-7DC1-4DEE-8C8A-9FECB5B31719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2FCE90-7DC1-4DEE-8C8A-9FECB5B31719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30E38E1-7E7D-4CCC-8139-46DEE174BAE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30E38E1-7E7D-4CCC-8139-46DEE174BAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30E38E1-7E7D-4CCC-8139-46DEE174BAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30E38E1-7E7D-4CCC-8139-46DEE174BAE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
