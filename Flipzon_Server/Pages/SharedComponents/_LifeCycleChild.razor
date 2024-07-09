@@ -1,0 +1,41 @@
+﻿<h3>_LifeCycleChild</h3>
+
+
+<p role="status">Current count from Parent: @CountValue</p>
+<hr />
+@foreach (var item in LifeCycleMethods)
+{
+    @item
+    <hr />
+}
+
+@code {
+
+    [Parameter]
+    public int CountValue { get; set; }
+
+    List<string> LifeCycleMethods = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        //It is going to invoked when the component starts
+
+        LifeCycleMethods.Add("Child - OnInitialized is called");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        LifeCycleMethods.Add("Child - OnInitializedAsync is called");
+
+        await Task.Delay(6000); // it is going to wait for async operation
+
+
+
+    }
+    protected override void OnParametersSet()
+    {
+        LifeCycleMethods.Add("Child - OnParametersSet is called");
+
+    }
+}

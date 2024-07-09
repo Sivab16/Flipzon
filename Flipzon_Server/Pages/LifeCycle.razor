@@ -1,0 +1,93 @@
+﻿@page "/learnlifecycle"
+
+<h3 class="text text-capitalize">Life Cycle</h3>
+<br />
+
+<p role="status">Current count: @counter</p>
+
+<button class="btn btn-primary" @onclick="IncrementCounter">Click me</button>
+<hr />
+<div class="border"
+<_LifeCycleChild CountValue="counter"> </_LifeCycleChild>
+ </div>
+
+<hr />
+@foreach (var item in LifeCycleMethods)
+{
+    @item
+    <hr />
+}
+
+@code {
+    List<string> LifeCycleMethods = new List<string>();
+
+    private int counter;
+    private void IncrementCounter()
+    {
+        counter++;
+    }
+
+    protected override void OnInitialized()
+    {
+        //It is going to invoked when the component starts
+
+        LifeCycleMethods.Add("OnInitialized is called");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        LifeCycleMethods.Add("OnInitializedAsync is called");
+
+        await Task.Delay(6000); // it is going to wait for async operation
+    }
+
+    protected override void OnParametersSet()
+    {
+        LifeCycleMethods.Add("OnParametersSet is called");
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        LifeCycleMethods.Add("OnParametersSetAsync is called");
+        await Task.Delay(2000);
+
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (ShouldRender())
+        {
+            if (firstRender)
+            {
+                counter = 111;
+
+            }
+            else
+            {
+                counter = 999;
+            }
+            LifeCycleMethods.Add("OnAfterRender is called");
+        }
+
+       
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstTime)
+    {
+
+        LifeCycleMethods.Add("OnAfterRenderAsync is called");
+
+    }
+
+
+
+    protected override bool ShouldRender()
+    {
+        LifeCycleMethods.Add("ShouldRender is called");
+        return counter % 2 != 0;
+    }
+}

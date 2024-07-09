@@ -2,24 +2,51 @@
 
 <h3>Parent Child Relationship</h3>
 
-<_ChildComponent OnClickButton="ShowMessage" Title="The Title message from Parent">
 
-    <ChildContent>  Render fragment type from child content  </ChildContent>
 
-</_ChildComponent>
+
+<CascadingValue Name="Message" Value="GrandParentMessage">
+    <CascadingValue Name="Age" Value="GrandChildAge">
+
+    <_ChildComponent OnClickButton="ShowMessage" Title="The Title message from Parent">
+            <SecondChildContent>  <div class="border-3"> </div> <p>Hi this is render fragment content in a child component </p> </SecondChildContent>
+        
+            <ChildContent>  <div>  Render Fragment type content from parent121212 </div> </ChildContent>
+           
+    </_ChildComponent>
+        </CascadingValue>
+</CascadingValue>
 
 <p> @message </p>
 
+<CascadingValue Name="Head" Value="Parentmessage">
 
-<_SecondChild InputAttributes="InputAttributesFromParent">
+    <CascadingValue Name="First Name" Value="ChildName">
+        <CascadingValue Name="Age" Value="Age">
 
-</_SecondChild>
+       
+
+    <_SecondChild InputAttributes="InputAttributesFromParent">
+
+    </_SecondChild>
+     </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 
 
-
+<a href="parent?Param1=123&Param2=flipzon" class="btn btn-primary" > Load query Parameter</a>
 
 
 @code {
+    public string Parentmessage = "Hi second child! This message is  from your Parent";
+
+    public string ChildName = "Chozha";
+
+    public string Age = "3";
+
+    public string GrandParentMessage = "Hello Grand Child, this message from grand parent";
+
+    public string GrandChildAge = "4";
 
     [Parameter]
     public Dictionary<string, object> InputAttributesFromParent { get; set; } = new Dictionary<string, object>()

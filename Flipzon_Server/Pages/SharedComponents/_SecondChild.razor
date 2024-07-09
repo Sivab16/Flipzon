@@ -1,6 +1,8 @@
 ﻿<div>
 
-    <h4 class=" text text-primary pt-3"> Second Child Component</h4>
+    <h4 class=" text text-primary pt-3">Second Child Component - @Title</h4>
+    <h2 class=" text text-secondary pt-3">Name - @Name</h2>
+    <h5 class=" text text-secondary pt-1">Age - @Age</h5>
 
     @* <input id="nametemp" placeholder=@Placeholder maxlength=@MaxLength required=@required /> *@
 
@@ -8,6 +10,16 @@
 
 </div>
 @code {
+
+    [CascadingParameter(Name = "Head")]
+    public string Title { get; set; }
+
+    [CascadingParameter(Name = "First NaMe")]
+    public string Name { get; set; }
+
+    [CascadingParameter(Name = "age")]
+    public string Age { get; set; }
+
     [Parameter]
     public string Placeholder { get; set; } = "Enter text here";
 
@@ -26,9 +38,9 @@
     [Parameter]
     public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
     {
-        { "placeholder" ,"Enter text here..."},
+        { "placeholder" ,"Enter text here , This is the text area"},
         { "maxlength"," 15"},
         {"required","required" },
-    {"autocomplete","on"}
+        {"autocomplete","on"}
     };
 }
