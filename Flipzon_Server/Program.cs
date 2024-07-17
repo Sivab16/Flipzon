@@ -1,6 +1,8 @@
 using Flipzon_Server.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Flipzon_DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flipzon_Server
 {
@@ -14,7 +16,9 @@ namespace Flipzon_Server
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
-
+            builder.Services.AddDbContext<ApplicationDBContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

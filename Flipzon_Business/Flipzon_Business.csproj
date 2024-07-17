@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flipzon_DataAccess\Flipzon_DataAccess.csproj" />
+    <ProjectReference Include="..\Flipzon_Models\Flipzon_Models.csproj" />
+  </ItemGroup>
+
 </Project>
