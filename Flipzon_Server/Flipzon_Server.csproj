@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Flipzon_Models\Flipzon_Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
