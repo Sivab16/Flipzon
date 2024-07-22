@@ -67,6 +67,9 @@ namespace Flipzon_Business
             if (getObjFromDB != null) 
             {
                 getObjFromDB.Name = objDTO.Name;
+                getObjFromDB.Description = objDTO.Description;
+                getObjFromDB.CreatedDate = objDTO.CreatedDate;
+
                 _database.categories.Update(getObjFromDB);
                 _database.SaveChanges();
                 return _mapper.Map<Category, CategoryDTO>(getObjFromDB);

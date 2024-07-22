@@ -1,5 +1,5 @@
 ﻿@page "/category/create"
-
+@page "/category/edit/{id:int}"
 @inject ICategoryRepository _categoryRepository
 
 @inject NavigationManager _navigationManager
@@ -8,39 +8,85 @@
     <h3 class="card-title text-primary mb-3 ml-3">@Title Category</h3>
 
     <div class="col-12">
-        <EditForm Model="Category" OnSubmit="CrudOperations">
-            <DataAnnotationsValidator />
-            <div class="form-group">
-                <label>Name</label>
-                <InputText @bind-Value="Category.Name" class="form-control"></InputText>
-                <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+        @if (IsLoading)
+        {
+            <div class="text-md-center">
+                <img src="/images/loading.gif" />
+            </div>
+        }
+        else
+        {
+            <EditForm Model="Category" OnValidSubmit="CrudOperations">
+                <DataAnnotationsValidator />
+                @*  <ValidationSummary /> *@
+                <div class="form-group">
+                    <label>Name</label>
+                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>
+                    <InputText @bind-Value="Category.Name" class="form-control"></InputText>
+                    <br />
+                    <label>Description</label>
+                    <InputText @bind-Value="Category.Description" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Category.Description"></ValidationMessage>
+
+                </div>
                 <br />
-                <label>Description</label>
-                <InputText @bind-Value="Category.Description" class="form-control"></InputText>
-                <ValidationMessage For="()=>Category.Description"></ValidationMessage>
+                <div class="form-group">
+                    <button class="btn btn-primary"> @Title</button>
+                    <NavLink href="category/category" class="btn btn-secondary">Back to Category List</NavLink>
+                </div>
+            </EditForm>
+        }
 
-            </div>
-            <br />
-            <div class="form-group">
-                <button class="btn btn-primary"> @Title</button>
-                <NavLink href="category/category" class="btn btn-secondary">Back to Category List</NavLink>
-            </div>
-        </EditForm>
     </div>
-
-
 </div>
 
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
+
     private CategoryDTO Category { get; set; } = new CategoryDTO();
 
     private string Title { get; set; } = "Create";
 
+    public bool IsLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == 0)
+        {
+            IsLoading = false;
+        }
+        else
+        {
+            //update
+            Title = "Update";
+            await Task.Run(LoadCategories);
+        }
+    }
+
+    private void LoadCategories()
+    {
+        Category = _categoryRepository.Get(Id);
+        IsLoading = false;
+    }
+
+
+
     public void CrudOperations()
     {
         Category.CreatedDate = DateTime.Now;
-        _categoryRepository.Create(Category);
+        if (Id == 0)
+        {
+
+            _categoryRepository.Create(Category);
+
+        }
+        else
+        {
+            _categoryRepository.Update(Category);
+        }
         _navigationManager.NavigateTo("category/category");
     }
 
