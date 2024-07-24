@@ -1,11 +1,11 @@
-﻿@page "/category/create"
-@page "/category/edit/{id:int}"
-@inject ICategoryRepository _categoryRepository
+﻿@page "/product/create"
+@page "/product/edit/{id:int}"
+@inject IProductRepository _productRepository
 
 @inject NavigationManager _navigationManager
 
 <div class="row my-2">
-    <h3 class="card-title text-primary mb-3 ml-3">@Title Category</h3>
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Product</h3>
 
     <div class="col-12">
         @if (IsLoading)
@@ -16,23 +16,22 @@
         }
         else
         {
-            <EditForm Model="Category" OnValidSubmit="CrudOperations">
+            <EditForm Model="Product" OnValidSubmit="CrudOperations">
                 <DataAnnotationsValidator />
-                @*  <ValidationSummary /> *@
-                <div class="form-group">
+                 <div class="form-group">
                     <label>Name</label>
-                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>
-                    <InputText @bind-Value="Category.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Product.Name"></ValidationMessage>
+                    <InputText @bind-Value="Product.Name" class="form-control"></InputText>
                     <br />
                     <label>Description</label>
-                    <InputText @bind-Value="Category.Description" class="form-control"></InputText>
-                    <ValidationMessage For="()=>Category.Description"></ValidationMessage>
+                    <InputText @bind-Value="Product.Description" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Product.Description"></ValidationMessage>
 
                 </div>
                 <br />
                 <div class="form-group">
                     <button class="btn btn-primary"> @Title</button>
-                    <NavLink href="category/category" class="btn btn-secondary">Back to Category List</NavLink>
+                    <NavLink href="product/Productlist" class="btn btn-secondary">Back to Product List</NavLink>
                 </div>
             </EditForm>
         }
@@ -46,7 +45,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private ProductDTO Product { get; set; } = new ProductDTO();
 
     private string Title { get; set; } = "Create";
 
@@ -74,7 +73,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Category = await _categoryRepository.Get(Id);
+        Product = await _productRepository.Get(Id);
         IsLoading = false;
         StateHasChanged();
     }
@@ -83,18 +82,18 @@
 
     public async Task CrudOperations()
     {
-        Category.CreatedDate = DateTime.Now;
+       
         if (Id == 0)
         {
 
-           await _categoryRepository.Create(Category);
+            await _productRepository.Create(Product);
 
         }
         else
         {
-           await _categoryRepository.Update(Category);
+            await _productRepository.Update(Product);
         }
-        _navigationManager.NavigateTo("category/category");
+        _navigationManager.NavigateTo("product/product");
     }
 
 }

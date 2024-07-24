@@ -1,6 +1,8 @@
-﻿@page "/Category/category"
+﻿@page "/Product/Productlist"
 
-@inject ICategoryRepository _categoryRepository
+
+
+@inject IProductRepository _productRepository
 @inject IJSRuntime _jsRuntime
 
 
@@ -8,38 +10,44 @@
 <_DeleteConfirmation IsProcessing=@IsLoading ConfirmationChanged="ConfirmDelete_Click"> </_DeleteConfirmation>
 <div class="row mt-4">
     <div class="col-6">
-        <h4 class="card-title text-primary">Category</h4>
+        <h4 class="card-title text-primary">Product List</h4>
     </div>
     <div class="col-4 offset-2">
-        <a href="category/create" class="btn btn-info form-control"> Add New Category </a>
+        <a href="product/create" class="btn btn-info form-control"> Add New Product </a>
     </div>
 
     <div class="col-12">
         <br />
-        @if (CategoryList.Any())
+        @if (ProductList.Any())
         {
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th>Added Date</th>
+                        <th>Shop Favourites</th>
+                        <th>Customer Favourites</th>
+                        <th>Category</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in CategoryList)
+                    @foreach (var item in ProductList)
                     {
                         <tr>
                             <td>
                                 @item.Name
                             </td>
+                            <th>
+                                <input type="checkbox" disabled checked="@item.ShopFavorites" />
+                            </th>
+                            <th>
+                                <input type="checkbox" disabled checked="@item.CustomerFavorites" />
+                            </th>
+                            <th>
+                                @item.Category.Name
+                            </th>
                             <td>
-                                @item.Description
-                            </td>
-                            <td>@item.CreatedDate</td>
-                            <td>
-                                <NavLink href="@($"category/edit/{item.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <NavLink href="@($"product/edit/{item.Id}")" class="btn btn-primary">Edit</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandDelete(item.Id)">Delete</button>
                             </td>
                         </tr>
@@ -71,7 +79,7 @@
 @code {
     public int DeleteCategoryId { get; set; } = 0;
 
-    private IEnumerable<CategoryDTO> CategoryList { get; set; } = new List<CategoryDTO>();
+    private IEnumerable<ProductDTO> ProductList { get; set; } = new List<ProductDTO>();
 
     public bool IsLoading { get; set; }
 
@@ -79,16 +87,16 @@
     {
         if (firstRender)
         {
-           await LoadCategories();
+            await LoadCategories();
         }
 
     }
 
-    private async Task LoadCategories()
+    private  async Task LoadCategories()
     {
         IsLoading = true;
         StateHasChanged();
-        CategoryList = await _categoryRepository.GetAll();
+        ProductList =  await _productRepository.GetAll();
         IsLoading = false;
         StateHasChanged();
 
@@ -105,9 +113,9 @@
         IsLoading = true;
         if (IsConfirm && DeleteCategoryId != 0)
         {
-           await _categoryRepository.Delete(DeleteCategoryId);
-           await LoadCategories();
-           await _jsRuntime.InvokeVoidAsync("HideDeleteModal");
+            await _productRepository.Delete(DeleteCategoryId);
+            await LoadCategories();
+            await _jsRuntime.InvokeVoidAsync("HideDeleteModal");
         }
         IsLoading = false;
     }

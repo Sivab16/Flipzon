@@ -3,6 +3,7 @@ using Flipzon_Business.Repository.IRepository;
 using Flipzon_DataAccess;
 using Flipzon_DataAccess.Data;
 using Flipzon_Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,31 +23,31 @@ namespace Flipzon_Business
             _database = applicationDBContext;
             _mapper = mapper;
         }
-        public CategoryDTO Create(CategoryDTO objDTO)
+        public async Task<CategoryDTO> Create(CategoryDTO objDTO)
         {
             var category = _mapper.Map<CategoryDTO, Category>(objDTO);
 
             _database.categories.Add(category);
-            _database.SaveChanges();
+            await _database.SaveChangesAsync();
 
             return _mapper.Map<Category, CategoryDTO>(category);
-            
+
         }
 
-        public int Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            var deleteObjByID = _database.categories.FirstOrDefault(a => a.Id == id);
+            var deleteObjByID = _database.categories.FirstOrDefaultAsync(a => a.Id == id);
             if (deleteObjByID != null)
             {
                 _database.Remove(deleteObjByID);
-                _database.SaveChanges();
+                await _database.SaveChangesAsync();
             }
             return 0;
         }
 
-        public CategoryDTO Get(int id)
+        public async Task<CategoryDTO> Get(int id)
         {
-            var getObjByID = _database.categories.FirstOrDefault(a => a.Id == id);
+            var getObjByID = await _database.categories.FirstOrDefaultAsync(a => a.Id == id);
             if (getObjByID != null)
             {
                 return _mapper.Map<Category, CategoryDTO>(getObjByID);
@@ -54,24 +55,24 @@ namespace Flipzon_Business
             return new CategoryDTO();
         }
 
-        public IEnumerable<CategoryDTO> GetAll()
+        public async Task<IEnumerable<CategoryDTO>> GetAll()
         {
             return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(_database.categories);
 
         }
- 
 
-        public CategoryDTO Update(CategoryDTO objDTO)
+
+        public async Task<CategoryDTO> Update(CategoryDTO objDTO)
         {
-            var getObjFromDB = _database.categories.FirstOrDefault(a => a.Id == objDTO.Id);
-            if (getObjFromDB != null) 
+            var getObjFromDB = await _database.categories.FirstOrDefaultAsync(a => a.Id == objDTO.Id);
+            if (getObjFromDB != null)
             {
                 getObjFromDB.Name = objDTO.Name;
                 getObjFromDB.Description = objDTO.Description;
                 getObjFromDB.CreatedDate = objDTO.CreatedDate;
 
                 _database.categories.Update(getObjFromDB);
-                _database.SaveChanges();
+                await _database.SaveChangesAsync();
                 return _mapper.Map<Category, CategoryDTO>(getObjFromDB);
             }
             return new CategoryDTO();
