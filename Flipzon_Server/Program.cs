@@ -5,6 +5,9 @@ using Flipzon_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Flipzon_Business.Repository.IRepository;
 using Flipzon_Business;
+using Flipzon_Server.Service;
+using Flipzon_Server.Service.IService;
+using Syncfusion.Blazor;
 
 namespace Flipzon_Server
 {
@@ -18,13 +21,16 @@ namespace Flipzon_Server
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
-            builder.Services.AddDbContext<ApplicationDBContext>(options => 
+            builder.Services.AddDbContext<ApplicationDBContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
+            builder.Services.AddScoped<IFileUpload, FileUpload>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+            builder.Services.AddSyncfusionBlazor();
             var app = builder.Build();
-            
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -32,14 +38,14 @@ namespace Flipzon_Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-         
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
             app.UseRouting(); // assign the endpoint for our application
 
-            app.MapBlazorHub(); 
+            app.MapBlazorHub();
             // SignalR communicaiton is works here
             app.MapFallbackToPage("/_Host");
 

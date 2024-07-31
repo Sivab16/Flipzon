@@ -36,7 +36,7 @@ namespace Flipzon_Business
 
         public async Task<int> Delete(int id)
         {
-            var deleteObjByID = _database.categories.FirstOrDefaultAsync(a => a.Id == id);
+            var deleteObjByID = await _database.categories.FirstOrDefaultAsync(a => a.Id == id);
             if (deleteObjByID != null)
             {
                 _database.Remove(deleteObjByID);

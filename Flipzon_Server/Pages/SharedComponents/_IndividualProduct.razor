@@ -1,7 +1,8 @@
-﻿<div class="bg-light border m-2 col-5 p-4  " @onclick="(args)=>GetLastProductName(args,Product.Name)">
+﻿
+<div class="bg-light border m-2 col-5 p-4  " @onclick="(args)=>GetLastProductName(args,Product.Name)">
     <h4 class="text-primary">Product - @Product.Id</h4>
 
-    <div> <input type="checkbox" @onchange="WishListUpdate" /> Add to Wishlist  </div>
+    @* <div> <input type="checkbox" @onchange="WishListUpdate" /> Add to Wishlist  </div> *@
     Name: @Product.Name<br />
     Price: @Product.Price<br />
     Show Feature:
@@ -39,9 +40,9 @@
 
 
     //asynchronous programming - allows a method to run without blocking the main thread.
-    private async Task WishListUpdate(ChangeEventArgs e)
+    private async Task WishListUpdate(Microsoft.AspNetCore.Components.EventCallback ChangeEventArgs )
     {
-        await OnWishListSelection.InvokeAsync((bool)e.Value);
+        // await OnWishListSelection.InvokeAsync((bool)ChangeEventArgs.);
         
     }
 

@@ -28,7 +28,7 @@ namespace Flipzon_Business
         {
             var product = _mapper.Map<ProductDTO, Product>(objDTO);
 
-            _database.Products.Add(product);
+             _database.Products.Add(product);
             await _database.SaveChangesAsync();
 
             return _mapper.Map<Product, ProductDTO>(product);
@@ -36,18 +36,18 @@ namespace Flipzon_Business
 
         async Task<int> IProductRepository.Delete(int id)
         {
-            var deleteObjByID = _database.Products.FirstOrDefaultAsync(a => a.Id == id);
+            var deleteObjByID = await _database.Products.FirstOrDefaultAsync(a => a.Id == id);
             if (deleteObjByID != null)
             {
                 _database.Remove(deleteObjByID);
-                await _database.SaveChangesAsync();
+               return await _database.SaveChangesAsync();
             }
             return 0;
         }
-
         async Task<ProductDTO> IProductRepository.Get(int id)
         {
-            var getObjByID = await _database.Products.FirstOrDefaultAsync(a => a.Id == id);
+            //var getObjByID = await _database.Products.FirstOrDefaultAsync(a => a.Id == id);
+            var getObjByID = await _database.Products.Include(a=>a.Category).FirstOrDefaultAsync(a => a.Id == id);
             if (getObjByID != null)
             {
                 return _mapper.Map<Product, ProductDTO>(getObjByID);
@@ -58,7 +58,7 @@ namespace Flipzon_Business
         async Task<IEnumerable<ProductDTO>> IProductRepository.GetAll()
         {
 
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_database.Products);
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(_database.Products.Include(i=>i.Category));
 
         }
 
@@ -74,7 +74,6 @@ namespace Flipzon_Business
                 getObjFromDB.Color = objDTO.Color;
                 getObjFromDB.ShopFavorites = objDTO.ShopFavorites;
                 getObjFromDB.CustomerFavorites = objDTO.CustomerFavorites;
-                getObjFromDB.Description = objDTO.Description;
 
                 _database.Products.Update(getObjFromDB);
                 await _database.SaveChangesAsync();

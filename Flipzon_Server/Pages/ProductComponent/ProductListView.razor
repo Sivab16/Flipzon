@@ -1,11 +1,11 @@
 ﻿@page "/Product/Productlist"
 
 
-
 @inject IProductRepository _productRepository
+
 @inject IJSRuntime _jsRuntime
 
-
+@inject IFileUpload _fileUpload
 
 <_DeleteConfirmation IsProcessing=@IsLoading ConfirmationChanged="ConfirmDelete_Click"> </_DeleteConfirmation>
 <div class="row mt-4">
@@ -31,6 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach (var item in ProductList)
                     {
                         <tr>
@@ -48,10 +49,22 @@
                             </th>
                             <td>
                                 <NavLink href="@($"product/edit/{item.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <NavLink href="@($"product/price/{item.Id}")" class="btn btn-success">Price</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandDelete(item.Id)">Delete</button>
                             </td>
                         </tr>
+                        <br />
 
+                        @* <SfGrid DataSource="@ProductList" AllowPaging="true">
+                <GridPageSettings PageSize="5"></GridPageSettings>
+                <GridColumns>
+                <GridColumn Field=@nameof(item.Name) HeaderText="Name" TextAlign="TextAlign.Right" Width="50"></GridColumn>
+                <GridColumn Field=@nameof(item.ShopFavorites) HeaderText="Shop favourites " Width="150"></GridColumn>
+                <GridColumn Field=@nameof(item.CustomerFavorites) HeaderText="Customer favourites" Format="d" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+                <GridColumn Field=@nameof(item.Description) HeaderText="Description" Type="ColumnType.TimeOnly" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+                <GridColumn Field=@nameof(item.Color) HeaderText="Color" Format="C2" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                </GridColumns>
+                </SfGrid> *@
                     }
                 </tbody>
             </table>
@@ -77,9 +90,10 @@
 
 
 @code {
-    public int DeleteCategoryId { get; set; } = 0;
+    public int DeleteProductId { get; set; } = 0;
 
     private IEnumerable<ProductDTO> ProductList { get; set; } = new List<ProductDTO>();
+
 
     public bool IsLoading { get; set; }
 
@@ -87,16 +101,17 @@
     {
         if (firstRender)
         {
-            await LoadCategories();
+            await LoadProduct();
+
         }
 
     }
 
-    private  async Task LoadCategories()
+    private async Task LoadProduct()
     {
         IsLoading = true;
         StateHasChanged();
-        ProductList =  await _productRepository.GetAll();
+        ProductList = await _productRepository.GetAll();
         IsLoading = false;
         StateHasChanged();
 
@@ -104,18 +119,29 @@
 
     private void HandDelete(int Id)
     {
-        DeleteCategoryId = Id;
+        DeleteProductId = Id;
         _jsRuntime.InvokeVoidAsync("ShowDeleteModal");
     }
 
     private async Task ConfirmDelete_Click(bool IsConfirm)
     {
         IsLoading = true;
-        if (IsConfirm && DeleteCategoryId != 0)
+        if (IsConfirm && DeleteProductId != 0)
         {
-            await _productRepository.Delete(DeleteCategoryId);
-            await LoadCategories();
+            ProductDTO produt = await _productRepository.Get(DeleteProductId);
+            if (!produt.ImageUrl.Contains("default.png"))
+            {
+
+                _fileUpload.DeleteFile(produt.ImageUrl);
+            }
+
+            await _productRepository.Delete(DeleteProductId);
+            await _jsRuntime.ToastrSuccess("Delete Successfull");
+            await LoadProduct();
             await _jsRuntime.InvokeVoidAsync("HideDeleteModal");
+
+            //popup message box
+            //await _jsRuntime.InvokeAsync<bool>("confirm", "Delete Confirmed");
         }
         IsLoading = false;
     }

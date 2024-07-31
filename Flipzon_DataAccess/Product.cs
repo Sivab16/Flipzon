@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,15 +21,18 @@ namespace Flipzon_DataAccess
         public bool ShopFavorites { get; set; }
 
         public bool CustomerFavorites { get; set; }
-
+  
         public string ImageUrl { get; set; }
 
+        
         public string Color { get; set; }
-
+      
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
 
-        public Category category { get; set; }
+        public Category Category { get; set; }
+
+        public ICollection<ProductPrice> ProductPrices { get; set; }
     }
 }
